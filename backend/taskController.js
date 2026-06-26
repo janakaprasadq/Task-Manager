@@ -4,7 +4,7 @@ const db = require('./db');
 
 exports.createTask = async (req, res) => {
     try {
-        const { title, description, priority, status, dueDate, assingedTo } = req.body;
+        const { title, description, priority, status, dueDate, assignedTo } = req.body;
         const createdBy = req.user.id;
 
         if (!title) {
@@ -30,7 +30,7 @@ exports.createTask = async (req, res) => {
 
 // 2. Get all tasks with filters
 
-exports.getTask = async (req, res) => {
+exports.getTasks = async (req, res) => {
     try {
         const { id, role } = req.user;
         const { status, priority, search } = req.query;
@@ -84,14 +84,14 @@ exports.getTaskById = async (req, res) => {
         const userId = req.user.id;
         const role = req.user.role;
 
-        const [tasks] = await db.query(`SELECT *FROM tasks WHERE id=?`, [id]);
+        const [tasks] = await db.query(`SELECT * FROM tasks WHERE id=?`, [id]);
         if (tasks.length === 0) {
             return res.status(404).json({ error: "Task not found." });
         }
 
         const task = tasks[0];
 
-        if (role !== 'Admin' && task.created_By !== userId && task.assigned_to !== userId) {
+        if (role !== 'Admin' && task.created_by !== userId && task.assigned_to !== userId) {
             return res.status(403).json({ error: "Access denied to this task resource." });
         }
 
@@ -105,7 +105,7 @@ exports.getTaskById = async (req, res) => {
 exports.updateTask = async (req, res) => {
     try {
         const { id } = req.params;
-        const { title, description, priority, status, dueDate, assignedTo } = re.body;
+        const { title, description, priority, status, dueDate, assignedTo } = req.body;
         const userId = req.user.id;
         const role = req.user.role;
 
@@ -114,7 +114,7 @@ exports.updateTask = async (req, res) => {
             return res.status(404).json({ error: "Task not found." })
         }
 
-        if (role !== 'Admin' && tasks[0].created_By !== userId && tasks[0].assigned_to !== userId) {
+        if (role !== 'Admin' && tasks[0].created_by !== userId && tasks[0].assigned_to !== userId) {
             return res.status(403).json({ error: "You do not have permission to modify this task." });
         }
 

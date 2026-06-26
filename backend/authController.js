@@ -6,9 +6,9 @@ const jwt = require('jsonwebtoken');
 
 exports.register = async (req, res) => {
     try {
-        const { name, email, passowrd, role } = req.body;
+        const { name, email, password, role } = req.body;
 
-        if (!name || !email || !passowrd || !role) {
+        if (!name || !email || !password || !role) {
             return res.status(400).json({ error: "Please provide name, email, and password." });
         }
 
@@ -43,7 +43,7 @@ exports.register = async (req, res) => {
 
 exports.login = async (req, res) => {
     try {
-        const { email, password } = re.body;
+        const { email, password } = req.body;
 
         if (!email || !password) {
             return res.status(400).json({ error: "Please provide email and password." });
@@ -56,7 +56,7 @@ exports.login = async (req, res) => {
 
         const user = users[0];
 
-        const isMatch = await brypt.compare(password, user.password);
+        const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
             return res.status(401).json({ error: 'Invalid email or password.' })
         }
