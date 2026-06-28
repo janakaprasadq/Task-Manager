@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import api from '../services/api';
 import { useAuth } from '../context/AuthContext';
-import { 
-  Plus, Edit, Trash2, Calendar, AlertTriangle, 
+import {
+  Plus, Edit, Trash2, Calendar, AlertTriangle,
   Search, Filter, CheckSquare, LogOut, Shield, User, X, Loader2, Clock
 } from 'lucide-react';
 
@@ -52,7 +52,7 @@ export const Dashboard: React.FC = () => {
     setDetailsTask(task);
     setShowDetailsModal(true);
   };
-  
+
   // Modal Form state
   const [formTitle, setFormTitle] = useState('');
   const [formDescription, setFormDescription] = useState('');
@@ -60,7 +60,7 @@ export const Dashboard: React.FC = () => {
   const [formStatus, setFormStatus] = useState<'Open' | 'In Progress' | 'Testing' | 'Done'>('Open');
   const [formDueDate, setFormDueDate] = useState('');
   const [formAssignedTo, setFormAssignedTo] = useState<string>('');
-  
+
   const [modalLoading, setModalLoading] = useState(false);
   const [modalError, setModalError] = useState<string | null>(null);
 
@@ -85,7 +85,7 @@ export const Dashboard: React.FC = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await api.get('/api/auth/users');
+      const response = await api.get('/auth/users');
       setUsers(response.data);
     } catch (err) {
       console.error('Error fetching users:', err);
@@ -227,7 +227,7 @@ export const Dashboard: React.FC = () => {
               {user?.role}
             </span>
           </div>
-          
+
           <button
             onClick={logout}
             className="flex items-center gap-2 px-3.5 py-1.5 bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 hover:border-red-500/30 text-red-300 hover:text-red-200 text-sm font-medium rounded-xl transition-all cursor-pointer"
@@ -240,7 +240,7 @@ export const Dashboard: React.FC = () => {
 
       {/* Main Content Area */}
       <main className="flex-1 max-w-7xl w-full mx-auto p-6 space-y-6">
-        
+
         {/* Filters and Add Actions row */}
         <div className="flex flex-col md:flex-row gap-4 justify-between items-start md:items-center bg-white/5 border border-white/10 p-5 rounded-2xl">
           <div className="flex flex-wrap gap-3 items-center w-full md:w-auto">
@@ -327,8 +327,8 @@ export const Dashboard: React.FC = () => {
               const canDelete = user?.role === 'Admin' || task.created_by === user?.id;
 
               return (
-                <div 
-                  key={task.id} 
+                <div
+                  key={task.id}
                   className="backdrop-blur-md bg-white/5 border border-white/10 hover:border-white/20 shadow-xl rounded-2xl p-6 flex flex-col justify-between hover:scale-[1.01] transition-all duration-200"
                 >
                   <div className="space-y-4">
@@ -344,7 +344,7 @@ export const Dashboard: React.FC = () => {
 
                     {/* Task Title & Desc */}
                     <div className="space-y-1.5">
-                      <h3 
+                      <h3
                         onClick={() => handleOpenDetailsModal(task)}
                         className="text-xl font-bold tracking-tight text-white font-sans text-left line-clamp-1 cursor-pointer hover:text-purple-400 hover:underline transition-colors"
                       >

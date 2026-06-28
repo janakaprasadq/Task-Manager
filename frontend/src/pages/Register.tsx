@@ -39,7 +39,7 @@ export const Register: React.FC<RegisterProps> = ({ onNavigateToLogin }) => {
     setLoading(true);
 
     try {
-      await api.post('/api/auth/register', {
+      await api.post('/auth/register', {
         name,
         email,
         password,
@@ -63,7 +63,7 @@ export const Register: React.FC<RegisterProps> = ({ onNavigateToLogin }) => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-indigo-950 to-purple-950 p-4">
       <div className="w-full max-w-md backdrop-blur-md bg-white/10 border border-white/20 shadow-2xl rounded-2xl p-8 space-y-6 transform transition-all duration-300 hover:scale-[1.01]">
-        
+
         {/* Header */}
         <div className="text-center space-y-2">
           <div className="inline-flex items-center justify-center p-3 bg-purple-500/20 border border-purple-500/30 rounded-xl text-purple-400 mb-2">
@@ -95,7 +95,7 @@ export const Register: React.FC<RegisterProps> = ({ onNavigateToLogin }) => {
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
-          
+
           {/* Full Name */}
           <div className="space-y-1.5">
             <label className="text-sm font-semibold text-slate-200 block text-left">

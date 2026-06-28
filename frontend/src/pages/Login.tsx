@@ -27,7 +27,7 @@ export const Login: React.FC<LoginProps> = ({ onNavigateToRegister }) => {
         }
         setLoading(true);
         try {
-            const response = await api.post('/api/auth/login', { email, password });
+            const response = await api.post('/auth/login', { email, password });
             const { user, token } = response.data;
             login(user, token);
         } catch (err: any) {
