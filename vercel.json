@@ -7,9 +7,16 @@
         },
         "backend": {
             "root": "backend",
-            "routePrefix": "/api/(.*)",
+            "routePrefix": "/api",
             "entrypoint": "server.js",
             "runtime": "node"
         }
-    }
+    },
+    "routes": [
+        {
+            "src": "/api/(.*)",
+            "dest": "/api/$1",
+            "check": true
+        }
+    ]
 }
