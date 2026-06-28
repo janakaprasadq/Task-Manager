@@ -8,7 +8,7 @@ exports.register = async (req, res) => {
     try {
         const { name, email, password, role } = req.body;
 
-        if (!name || !email || !password || !role) {
+        if (!name || !email || !password) {
             return res.status(400).json({ error: "Please provide name, email, and password." });
         }
 
@@ -19,7 +19,7 @@ exports.register = async (req, res) => {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
-        const finalRole = (role === "Admin") ? 'Admin' : 'User';
+        const finalRole = 'User';
 
         const [result] = await db.query(
             'INSERT INTO users (name,email,password,role) VALUES (?,?,?,?)',
@@ -83,4 +83,16 @@ exports.login = async (req, res) => {
         console.error("Login error:", error);
         res.status(500).json({ error: "Internal server error during login." });
     }
-}
+};
+
+// 3. Get all users
+exports.getAllUsers = async (req, res) => {
+    try {
+        const [users] = await db.query('SELECT id, name, email, role FROM users ORDER BY name ASC');
+        res.json(users);
+    } catch (error) {
+        console.error("Error fetching users:", error);
+        res.status(500).json({ error: "Internal server error." });
+    }
+};
+
