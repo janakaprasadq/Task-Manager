@@ -9,8 +9,8 @@ app.use(cors());
 app.use(express.json());
 
 // Use the authentication and task routes
-app.use('/api/auth', authRoutes);
-app.use('/api/tasks', taskRoutes);
+app.use('/auth', authRoutes);
+app.use('/tasks', taskRoutes);
 
 const PORT = process.env.PORT || 5000;
 
